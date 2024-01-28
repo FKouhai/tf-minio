@@ -13,5 +13,8 @@ resource "kubernetes_service" "minio" {
     }
     type = "ClusterIP"
   }
-
+  provisioner "local-exec" {
+    command = "kubectl create -f minio-in.yml"
+  }
 }
+
