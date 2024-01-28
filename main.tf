@@ -48,6 +48,7 @@ resource "kubernetes_deployment" "minio" {
           persistent_volume_claim {
             claim_name = kubernetes_persistent_volume_claim.minio.metadata.0.name
           }
+          name = "minio"
         }
         container {
           image   = "quay.io/minio/minio:latest"
