@@ -6,29 +6,26 @@ on:
 jobs:
   deploy:
     runs-on: "self-hosted"
+    environment: k8s
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: init
-        environment: k8s
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           terraform init
       - name: fmt
-        environment: k8s
         run: |
           terraform fmt
       - name: plan
-        environment: k8s
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           terraform plan -out deployment
       - name: deploy
-        environment: k8s
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
